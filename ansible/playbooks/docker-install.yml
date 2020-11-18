@@ -1,6 +1,6 @@
 # docker-install.yml
 ---
-- hosts: all
+- hosts: kubemaster:kubenodes
   become: true
   # vars_files:
   #   - vars/default.yml
@@ -24,7 +24,12 @@
         state: present
 
     - name: Update apt and install docker-ce
-      apt: update_cache=yes name=docker-ce state=latest
+      apt: update_cache=yes name=docker-ce=18.06.1~ce~3-0~ubuntu
+
+    - name: Hold docker-ce
+      dpkg_selections:
+        name: docker-ce
+        selection: hold
 
     - name: Install Docker Module for Python
       pip:

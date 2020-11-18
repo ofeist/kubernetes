@@ -1,0 +1,10 @@
+# docker-version.yml
+---
+  - hosts: kubemaster:kubenodes
+    become: true
+    tasks:
+      - name: get docker version
+        shell: "docker -v | cut -d ' ' -f 3 | cut -d ',' -f 1"
+        register: version
+
+      - debug: var=version.stdout
