@@ -1,0 +1,104 @@
+Parameters:
+  NameOfService:
+    Description: The tag name associated with this EC2 instances.
+    Type: String
+  KeyName:
+    Description: Name of an existing EC2 KeyPair to enable SSH access into the server
+    Type: AWS::EC2::KeyPair::KeyName
+Mappings:
+  RegionMap:
+    eu-central-1:
+      AMI: ami-0e1ce3e0deb8896d2
+Resources:
+  LnEc2InstanceServer1:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      ImageId:
+        Fn::FindInMap:
+        - RegionMap
+        - !Ref AWS::Region
+        - AMI
+      Tags:
+        - Key: Name
+          Value: !Join [ '-', [ !Ref NameOfService, 'kubeServer' ,'1'] ]
+      SecurityGroups:
+        - !Ref LnSecurityGroup
+      KeyName: !Ref KeyName
+  LnEc2InstanceServer2:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      ImageId:
+        Fn::FindInMap:
+        - RegionMap
+        - !Ref AWS::Region
+        - AMI
+      Tags:
+        - Key: Name
+          Value: !Join [ '-', [ !Ref NameOfService, 'kubeServer' ,'2'] ]
+      SecurityGroups:
+        - !Ref LnSecurityGroup
+      KeyName: !Ref KeyName
+  LnEc2InstanceServer3:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      ImageId:
+        Fn::FindInMap:
+        - RegionMap
+        - !Ref AWS::Region
+        - AMI
+      Tags:
+        - Key: Name
+          Value: !Join [ '-', [ !Ref NameOfService, 'kubeServer' ,'3'] ]
+      SecurityGroups:
+        - !Ref LnSecurityGroup
+      KeyName: !Ref KeyName
+  LnSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow SSH to client host. Created using CloudFormation template.
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: 22
+        ToPort: 22
+        CidrIp: 0.0.0.0/0
+      - IpProtocol: tcp
+        FromPort: 80
+        ToPort: 80
+        CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Name
+          Value: acg-kubernetes-course-sg
+        - Key: Description
+          Value: Security Group created for SSH and HTTP access to instances.
+  LnElasticIp1:
+    Type: AWS::EC2::EIP
+    Properties:
+      InstanceId: !Ref LnEc2InstanceServer1
+  LnElasticIp2:
+    Type: AWS::EC2::EIP
+    Properties:
+      InstanceId: !Ref LnEc2InstanceServer2
+  LnElasticIp3:
+    Type: AWS::EC2::EIP
+    Properties:
+      InstanceId: !Ref LnEc2InstanceServer3
+Outputs:
+  LnPublicIpAddressInstance1:
+    Description: The Public IP address for EC2 instances
+    Value: !GetAtt
+      - LnEc2InstanceServer1
+      - PublicIp
+  LnPublicIpAddressInstance2:
+    Description: The Public IP address for EC2 instances
+    Value: !GetAtt
+      - LnEc2InstanceServer2
+      - PublicIp
+  LnPublicIpAddressInstance3:
+    Description: The Public IP address for EC2 instances
+    Value: !GetAtt
+      - LnEc2InstanceServer3
+      - PublicIp
+

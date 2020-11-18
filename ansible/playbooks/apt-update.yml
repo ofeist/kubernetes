@@ -1,0 +1,7 @@
+# apt-update.yml
+---
+  - hosts: kubemaster:kubenodes
+    become: true
+    tasks:
+      - name: updating apt packages
+        apt: name=* state=latest

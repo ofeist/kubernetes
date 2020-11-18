@@ -1,0 +1,6 @@
+# uname.yml
+---
+  - hosts: kubemaster:kubenodes
+    tasks:
+      - name: get os type
+        shell: uname
