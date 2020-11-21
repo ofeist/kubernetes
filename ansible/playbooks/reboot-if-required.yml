@@ -1,0 +1,9 @@
+# reboot-if-required.yml
+---
+- hosts: kubemaster:kubenodes
+  become: true
+
+  tasks:
+    - name: reboot servers if required
+      command: shutdown -r now 'Rebooting to complete system upgrade' 
+                removes=/var/run/reboot-required

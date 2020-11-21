@@ -3,5 +3,5 @@
   - import_playbook: apt-update.yml
   - import_playbook: docker-install.yml
   - import_playbook: kubernetes-install.yml
-  # - import_playbook: setup-lb.yml
+  - import_playbook: reboot-if-required.yml
   # - import_playbook: check-status.yml
