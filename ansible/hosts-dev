@@ -1,11 +1,11 @@
 # hosts-dev
 
 [kubemaster]
-master ansible_host=18.158.171.239
+master ansible_host=18.193.186.166
 
 [kubenodes]
-node1 ansible_host=18.159.244.162
-node2 ansible_host=18.157.236.130
+node1 ansible_host=52.28.17.195
+node2 ansible_host=18.193.58.50
 
 [local]
 control ansible_connection=local

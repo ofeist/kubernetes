@@ -1,0 +1,13 @@
+# network-configure.yml
+---
+- hosts: kubemaster:kubenodes
+  become: true
+
+  tasks:
+    - name: configure network
+      lineinfile:
+        path: /etc/sysctl.conf
+        line: net.bridge.bridge-nf-call-iptables=1
+
+    - name: configure kernel parameter at runtime
+      command: sysctl -p

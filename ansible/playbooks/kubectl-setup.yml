@@ -1,0 +1,26 @@
+# kubectl-setup.yml
+---
+- hosts: kubemaster
+
+  tasks:
+  # - name: setup kubectl home
+  #   command: mkdir -p $HOME/.kube
+
+  # - name: setup kubectl admin config
+  #   command: cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+
+  # - name: setup kubectl chown
+  #   command: chown $(id -u):$(id -g) $HOME/.kube/config
+
+    - name: setup kubectl home
+      file: path=/home/ubuntu/.kube/ state=directory mode=0755
+
+    - name: copy kubectl admin config file, set owner and permissions
+      become: true
+      copy:
+        src: /etc/kubernetes/admin.conf
+        # dest: $HOME/.kube/config
+        dest: /home/ubuntu/.kube/config
+        remote_src: yes
+        owner: ubuntu
+        group: ubuntu
