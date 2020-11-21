@@ -1,0 +1,50 @@
+# kubernetes-install.yml
+---
+- hosts: kubemaster:kubenodes
+  become: true
+
+  tasks:
+    - name: add kubernetes gpg apt key
+      apt_key:
+        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+        state: present
+
+    - name: add kubernetes repository
+      apt_repository:
+        repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
+        state: present
+
+    # the order of installation of kubernetes components (kubelet, kubectl, kubeadm) is important!
+    - name: update apt and install kubelet
+      apt: update_cache=yes name=kubelet=1.15.7-00
+
+    - name: hold kubelet
+      dpkg_selections:
+        name: kubelet
+        selection: hold
+
+    - name: update apt and install kubectl
+      apt: update_cache=yes name=kubectl=1.15.7-00
+
+    # - name: force 1.15.7-00 version kubectl
+    #   command: aptitude install kubectl=1.15.7-00
+
+    - name: hold kubectl
+      dpkg_selections:
+        name: kubectl
+        selection: hold
+
+    # - name: install kubeadm
+    - name: install kubeadm
+      apt: update_cache=yes name=kubeadm=1.15.7-00
+
+    # # force downgrade to a specific versions
+    # - name: force downgrade to 1.15.7-00 version kubeadm
+    #   command: aptitude install kubeadm=1.15.7-00
+
+    - name: hold kubeadm
+      dpkg_selections:
+        name: kubeadm
+        selection: hold
+
+
