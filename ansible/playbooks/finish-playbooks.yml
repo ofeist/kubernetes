@@ -5,9 +5,3 @@
   # @kubenodes:: sudo kubeadm join $some_ip:6443 --token$some_token --discovery-token-ca-cert-hash $some_hash
   - import_playbook: network-configure.yml
   - import_playbook: flannel-install.yml
-
-
-  # - import_playbook: kubernetes-install.yml
-  # - import_playbook: reboot-if-required.yml
-  # - import_playbook: pod-network-init.yml
-  # - import_playbook: kubectl-setup.yml

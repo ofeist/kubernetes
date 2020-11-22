@@ -5,4 +5,7 @@
 
   tasks:
     - name: initialize pod network
+
+    this task needs to be automatized!
+    output of the command is used for joining workers to the master/cluster
       command: kubeadm init --pod-network-cidr=10.244.0.0/16 --ignore-preflight-errors=NumCPU
