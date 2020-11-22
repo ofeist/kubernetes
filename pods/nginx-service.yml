@@ -1,5 +1,3 @@
-# nginx-service.yml
-
 cat << EOF | kubectl create -f -
 kind: Service
 apiVersion: v1
