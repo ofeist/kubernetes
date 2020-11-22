@@ -20,3 +20,5 @@
 
 -ansible-playbook playbooks/finish-playbooks.yml
 
+
+https://kubernetes.io/docs/tasks/debug-application-cluster/debug-service/
