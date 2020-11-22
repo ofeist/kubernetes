@@ -1,7 +1,9 @@
-# all-playbooks.yml
+# finish-playbooks.yml
 ---
   # @kubemaster :: sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --ignore-preflight-errors=NumCPU
-  - import_playbook: kubectl-setup.yml
-  # @kubenodes:: sudo kubeadm join $some_ip:6443 --token$some_token --discovery-token-ca-cert-hash $some_hash
+  # ansible-playbook playbook/kubectl-setup.yml
+  # use the output command / cp into kubeadm-join.yml, then:
+  # ansible-playbook playbook/kubeadm-join.yml
+  # or run @kubenodes :: sudo kubeadm join $some_ip:6443 --token$some_token --discovery-token-ca-cert-hash $some_hash
   - import_playbook: network-configure.yml
   - import_playbook: flannel-install.yml

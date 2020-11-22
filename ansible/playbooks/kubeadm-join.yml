@@ -5,6 +5,5 @@
 
   tasks:
     - name: join kubemaster
-    
-    this task needs to be automatized!
-      command: kubeadm join 172.31.37.252:6443 --token 7qrd6k.wd708ewbipzicb5k --discovery-token-ca-cert-hash sha256:275ee4311de682093edfdd242bc4db772ada986646f0207a28d71a6391ab24d6
+      command: kubeadm join 172.31.33.116:6443 --token cz7ky6.hwkoqzhp6sl20bug --discovery-token-ca-cert-hash sha256:705d8f4aaa7a4c48ee7b849d1a23d0ed9f46ce219c6027e46ddb822bf63a71de
+      # command: kubeadm join 172.31.37.252:6443 --token 7qrd6k.wd708ewbipzicb5k --discovery-token-ca-cert-hash sha256:275ee4311de682093edfdd242bc4db772ada986646f0207a28d71a6391ab24d6
